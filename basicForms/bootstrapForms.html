@@ -12,9 +12,19 @@
 </head>
 
 <body>
+  <!-- Search bar -->
+  <nav class="navbar bg-body-tertiary">
+    <div class="container-fluid">
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" />
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </nav>
+
   <div class="container-sm">
     <form>
-      <div class="mb-3">
+      <div class="mb-3 row">
         <label for="exampleInputEmail1" class="form-label">Email address</label>
         <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
         <!-- 
@@ -23,7 +33,7 @@
         -->
         <div id="emailHelp" class="form-text">We'll never share your email with anyone else</div>
       </div>
-      <div class="mb-3">
+      <div class="mb-3 row">
         <label for="exampleInputPassword1" class="form-label">Password</label>
         <input type="password" class="form-control" id="exampleInputPassword1" aria-describedby="passwordHelp" />
         <div id="passwordHelp" class="form-text">
@@ -38,10 +48,90 @@
       <button type="submit" class="btn btn-warning">Submit</button>
     </form>
   </div>
+
+  <div class="container-sm">
+    <form>
+      <div class="mb-3 row">
+        <div class="col-auto">
+          <label for="email" class="col-sm-2 col-form-label">Email</label>
+          <input type="email" class="form-control" id="email" name="email" />
+        </div>
+
+        <div class="col-auto">
+          <label for="password" class="col-sm-2 col-form-label">Password</label>
+          <input type="password" class="form-control" id="password" name="password">
+        </div>
+      </div>
+
+      <!-- Phone Number field -->
+      <div class="mb-3 row">
+        <div class="col-auto">
+          <label for="tel" class="col-sm-2 col-form-label">Phone number</label>
+          <input type="tel" class="form-control" id="tel" name="tel" />
+        </div>
+      </div>
+
+      <!-- URL field -->
+      <div class="mb-3 row">
+        <div class="col-auto">
+          <label for="url_field" class="col-sm-2 col-form-label">URL field</label>
+          <input type="url" class="form-control" id="url_field" name="url_field" />
+        </div>
+      </div>
+
+      <!-- Number field quantity -->
+      <div class="mb-3 row">
+        <div class="col-auto">
+          <label for="number" class="col-sm-2 col-form-label">Number field (Quantity) </label>
+          <input type="number" class="form-control" id="number" name="number" min="2" max="20" step="2"/>
+        </div>
+      </div>
+
+      <!-- Slider -->
+      <div class="mb-3 row">
+        <div class="col-auto">
+          <!-- to actually display the current value of the slider we need to use JS -->
+          <label for="price" class="col-sm-2 col-form-label">Slider/Range: Choose a maximum house price</label>
+          <input type="range" class="form-range" id="price" name="price" min="50000" max="500000" step="5000" value="5000"/>
+          <output class="price-output" for="price" aria-placeholder="current_value"></output>
+        </div>
+      </div>
+
+      <!-- Date picker; using type="datetime-local" || type="date" || type="month" || type="time" type="week "-->
+      <div class="mb-3 row">
+        <div class="col-auto">
+          <label for="myDate">When are you available this year?</label>
+          <input type="datetime-local" id="myDate" name="myDate" />
+        </div>
+      </div>
+
+      <!-- Color picker -->
+      <div class="mb-3 row">
+        <div class="col-auto">
+          <label for="color_picker">Color Picker: what's your favorite color?</label>
+          <input type="color" id="color_picker" name="color_picker" />
+        </div>
+      </div>
+
+    </form>
+  </div>
+
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
-    crossorigin="anonymous"></script>
+    crossorigin="anonymous">
+  </script>
+
+  <script>
+    // event handler to allow output element to display the current value of slider 
+    const price = document.querySelector('#price');
+    const output = document.querySelector('.price-output');
+    output.textContent = price.value;
+
+    price.addEventListener('click', () => {
+      output.textContent = price.value;
+    })
+  </script>
 </body>
 
 </html>
