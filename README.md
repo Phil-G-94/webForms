@@ -41,3 +41,60 @@ It is used for creating most types of form widgets.
     - *image* input type also renders as a button. See image buttons. 
 
 - <button> element itself.
+
+### HTML5 input types
+- Search fields || type="search"
+- Phone number field || type="tel"
+- URL field || type="url"
+- Numeric field || type="number"
+- Slider controls || type="range"
+- Date and time pickers || type="datetime-local" ; type="month" ; type="time" ; type="week"
+  - Date/time controls can be constrained using *min* *max* attributes. We can add in *step* to additionally constrain input.   
+- Color picker control || type="color" 
+
+### Other form controls
+- Multi-line text fields || <textarea></textarea>
+- Drop-down controls || <select> & <option>
+- Meters and progress bars || <progress>
+
+### Styling Web Forms
+- Some form widgets more difficult to style than others. See [link](https://developer.mozilla.org/en-US/docs/Learn/Forms/Styling_web_forms#styling_simple_form_widgets)
+
+- Fonts and text: to make forms' appearance consistent with rest of content, you can use 
+  ```
+  button,
+  input,
+  select,
+  textarea {
+    font-family: inherit;
+    font-size: 100%;
+  }
+  ```
+
+- Box sizing: each widget has its own rules for border, padding and margin. Use the following to give the same size to several different widgets
+```
+input,
+textarea,
+select,
+button {
+  width: 150px;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+```
+
+- Legend placement: by default, it's always position over the top border of its <fieldset> parent, near the top left corner
+  We can position it somewhere else by using the *position* CSS property
+
+  ```
+  fieldset {
+    position: relative;
+  }
+
+  legend {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
+  ```
