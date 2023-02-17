@@ -98,3 +98,9 @@ button {
     right: 0;
   }
   ```
+
+### Advanced Form Styling 
+
+- appearance: none; || using the *appearance* property to control OS-level styling. Checkbox and radio button custom styles: see advancedFormStyling directory. 
+- Styling difficult controls like type="color" || ="datetime-local" etc... || <progress>, <meter>, <select>, <input> ...any dropdown menu...
+- see advancedFormStyling directory for examples
