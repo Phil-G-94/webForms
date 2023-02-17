@@ -16,6 +16,10 @@
         margin-bottom: 20px;
       }
 
+      /* 
+        global normalising CSS
+        gets elements to size in the same way; adopt parent font, etc. 
+      */
       button,
       label,
       input,
@@ -32,13 +36,29 @@
         height: 30px;
       }
 
+      /* 
+        removes the browser's built in select arrow to
+        1) allow for more uniform appearance
+        2) avoid re-sizing issues. built-in select arrow tends to change if you increase size of the <select> box
+      */
       select {
         appearance: none;
       }
 
+      /*
+        Since we are creating our own icon using generated content, 
+        we wrap our <select> in a <div class="select-wrapper">. We do this ecause ::before or ::after doesn't work on <select> element, 
+        and we need these pseudo states so we can position the generated content (down arrow) correctly within the <select> element
+      */
       .select-wrapper {
         position: relative;
       }
+
+      /*
+        Note: we don't have control over the options box that appears when we click the <select> element
+              this is also true for the autocomplete list that appears via <datalist> element 
+
+      */
 
       .select-wrapper::after {
         content: "▼";
@@ -48,6 +68,10 @@
         position: absolute;
       }
 
+      /* 
+        Adds uniform shadow and rounded corners to the input elements where it makes sense
+        We avoid using this on other controls like range type, progress bars and meters as it just adds an ugly box around the control area
+      */
       input[type="text"],
       input[type="datetime-local"],
       input[type="color"],
@@ -60,6 +84,36 @@
         margin-bottom: 5px;
       }
 
+      /* ISSUE: if we have a label associated w form contro, click the label WILL also activate the control
+          * one way to solve this is to hide the actual form input and then style the label to act like a button, which when pressed opens
+          the file picker. This method is used below
+      */
+
+      input[type="file"] {
+        height: 0;
+        width: 0;
+        opacity: 0;
+      }
+
+      label[for="file"] {
+        box-shadow: 1px 1px 3px #ccc;
+        background: linear-gradient(to bottom, #eee, #ccc);
+        border: 1px solid rgb(169, 169, 169);
+        border-radius: 5px;
+        text-align: center;
+        line-height: 1.5;
+      }
+
+      label[for="file"]:hover {
+        background: linear-gradient(to bottom, #fff, #ddd);
+      }
+
+      label[for="file"]:active {
+        box-shadow: inset 1px 1px 3px #ccc;
+      }
+
+      
+
       button {
         width: 60%;
         margin: 0 auto;
@@ -71,6 +125,7 @@
       <div>
         <label for="select">Select box:</label>
         <div class="select-wrapper">
+          <!-- we can use multiple attribute on select element to make all options appear on page -->
           <select id="select" name="select">
             <option>Banana</option>
             <option>Cherry</option>
@@ -93,10 +148,18 @@
         </datalist>
       </div>
       <div>
+        <!-- can't style popup calendar or increment/decrement spinner easily with html/css/js || explore 3rd party library options -->
         <label for="date1">Datetime local: </label>
         <input id="date1" name="date1" type="datetime-local" />
       </div>
       <div>
+        <!-- 
+          annoying to style
+          check out https://css-tricks.com/styling-cross-browser-compatible-range-inputs-css/ - uses LESS style sheets
+          check out https://codepen.io/collection/DgYaMj/ - for inspo
+
+      
+        -->
         <label for="range">Range: </label>
         <input id="range" name="range" type="range" />
       </div>
@@ -104,11 +167,22 @@
         <label for="color">Color: </label>
         <input id="color" name="color" type="color" />
       </div>
+
+      <!-- modified with JS-->
       <div>
         <label for="file">File picker: </label>
         <input id="file" name="file" type="file" multiple />
-        <ul id="file-list"></ul>
+        <ul id="file-list">
+
+        </ul>
       </div>
+
+      <!-- 
+        Meters and progress bars most difficult to style
+        Easier to create own custom solutions to be able to control the styling or, 
+        use 3rd party library.        
+      -->
+
       <div>
         <label for="progress">Progress: </label>
         <progress max="100" value="75" id="progress">75/100</progress>
@@ -127,7 +201,66 @@
           75
         </meter>
       </div>
+      <div>
+        <label for="color">Favorite color: </label>
+        <input type="color" name="color" id="color" />
+      </div>
       <div><button>Submit?</button></div>
     </form>
+    <script defer>
+      // constructed according to https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#examples
+
+      // grab our references
+      const fileInput = document.querySelector("#file");
+      const fileList = document.querySelector("#file-list");
+
+      // add event listener to input to listen for changes to selected value
+      // pass updateFileList function as callback 'hoisted'
+      fileInput.addEventListener("change", updateFileList);
+
+      function updateFileList() {
+        // uses a while loop to empty the previous content of the <ul> elements that represents the current file
+        while (fileList.firstChild) {
+          fileList.removeChild(fileList.firstChild);
+        }
+
+        // grab the FileList object of fileInput, returned by the .files property, and store in variable currentFile
+        let currentFile = fileInput.files;
+
+        // if the .length of the File List object !== 0
+        if (!(currentFile.length === 0)) {
+          // log the following to the console
+          console.log("File has been selected");
+
+          // loop through all entries of the File List object
+          for (let i = 0; i < currentFile.length; i++) {
+            // on each iteration of the loop, create
+            // a new list item (or <p>) element
+            // and assign a concatenated string as the  value of it's textContent property.
+            // then append this element to the fileList/<ul>
+            // and log that file to the console.
+            const listItem = document.createElement("li");
+            listItem.textContent =
+              "File name: " +
+              currentFile[i].name +
+              "; file size " +
+              returnFileSize(currentFile[i].size) +
+              ".";
+            fileList.appendChild(listItem);
+            console.log(currentFile[i]);
+          }
+        }
+      }
+
+      function returnFileSize(number) {
+        if (number < 1024) {
+          return number + "bytes";
+        } else if (number >= 1024 && number < 1048576) {
+          return (number / 1024).toFixed(1) + "KB";
+        } else if (number >= 1048576) {
+          return (number / 1048576).toFixed(1) + "MB";
+        }
+      }
+    </script>
   </body>
 </html>
