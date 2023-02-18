@@ -104,3 +104,11 @@ button {
 - appearance: none; || using the *appearance* property to control OS-level styling. Checkbox and radio button custom styles: see advancedFormStyling directory. 
 - Styling difficult controls like type="color" || ="datetime-local" etc... || <progress>, <meter>, <select>, <input> ...any dropdown menu...
 - see advancedFormStyling directory for examples
+
+### UI Pseudo Classes
+
+- Useful pseudo-classes [here](https://developer.mozilla.org/en-US/docs/Learn/Forms/UI_pseudo-classes#what_pseudo-classes_do_we_have_available)
+  - :hover, :active, :focus, :required, :optional, .
+  - need to use 'required' <html> attribute on :required inputs for client-side validation purposes. see pseudoDemo/pseudo-required.html.
+  - ::before || ::after pseudo-elements for generated content. usually contained in empty <span> elements see pseudoDemo/out-of-range.html.
+  - :enabled :disabled || see pseudoDemo/enabled-disabled. 
