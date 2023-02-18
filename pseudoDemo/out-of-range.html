@@ -4,19 +4,13 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap"
-      rel="stylesheet"
-    />
+    <title>:out-of-range example</title>
+
     <style>
       body {
-        font-family: "Roboto", sans-serif;
+        font-family: "Josefin Sans", sans-serif;
         margin: 20px auto;
         max-width: 460px;
-        background-color: bisque;
       }
 
       fieldset {
@@ -59,28 +53,39 @@
         background-color: #eee;
       }
 
-      /* 
-      
-       Validation indicators
-       As before, we set the <span>s to position: relative so that we can position the generated content relative to them. 
-       We then absolutely position different generated content depending on whether the form's data is valid or invalid — 
-       a green check or a red cross, respectively.  
-      
-      */
-
+      /* We set input and span positioning as relative so we can absolutely position the generated content within the elements*/ 
       input + span {
         position: relative;
       }
 
-      input:required + span::after {
+      /* */
+      input + span::after {
         font-size: 0.7rem;
         position: absolute;
-        content: "required";
-        color: white;
-        background-color: black;
         padding: 5px 10px;
         top: -26px;
+      }
+
+      /* input:required generated content */
+      input:required + span::after {
+        color: white;
+        background-color: black;
+        content: "required";
         left: -70px;
+      }
+      /* 
+      
+        input:out-of-range generated content. since the rule appears after input:required, cascade rules apply.
+        initially when page loads we see the :required styling applied; once user inputs number that is out of range, :out-of-range style
+        rules apply. 
+      
+      */
+      input:out-of-range + span::after {
+        color: white;
+        background-color: red;
+        width: 155px;
+        content: "Outside allowable value range";
+        left: -182px;
       }
 
       input + span::before {
@@ -100,7 +105,7 @@
 
       input:valid + span::before {
         content: "✓";
-        color: slateblue;
+        color: green;
       }
 
       button {
@@ -116,14 +121,23 @@
 
         <p>Required fields are labelled with "required".</p>
         <div>
-          <label for="fname">First name: </label>
-          <input id="fname" name="fname" type="text" required />
-          <!-- extra spans for generated content -->
+          <label for="name">Name: </label>
+          <input id="name" name="name" type="text" required />
           <span></span>
         </div>
         <div>
-          <label for="lname">Last name: </label>
-          <input id="lname" name="lname" type="text" required />
+          <!-- Numeric input with min / max specified. 
+               Displays a spinner within the input box so you can increment/decrement input number 
+          -->
+          <label for="age">Age (must be 12+): </label>
+          <input
+            id="age"
+            name="age"
+            type="number"
+            min="12"
+            max="120"
+            required
+          />
           <span></span>
         </div>
         <div>

@@ -35,7 +35,7 @@
         display: flex;
         flex-flow: row wrap;
       }
-      
+
       button,
       label,
       input {
@@ -60,7 +60,14 @@
         background-color: salmon;
       }
 
-      /* generated content */
+      /* 
+        generated content
+        
+        We set the <span> to position: relative so that we can set the generated content to position: absolute and position it relative to the <span> rather than the <body> (The generated content acts as though it is a child node of the element it is generated on, for the purposes of positioning).
+
+Then we give the generated content the content "required", which is what we wanted our label to say, and style and position it as we want.
+      
+      */
       input + span {
         position: relative;
       }
@@ -80,8 +87,6 @@
         width: 60%;
         margin: 0 auto;
       }
-
-      
     </style>
   </head>
   <body>
