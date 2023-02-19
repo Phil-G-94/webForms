@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded',
   document
     .querySelector('#billing-checkbox')
     .addEventListener('change', toggleBilling)
+    // we pass in false to set the event handler for the bubbling phase 
 }, false);
 
 function toggleBilling() {

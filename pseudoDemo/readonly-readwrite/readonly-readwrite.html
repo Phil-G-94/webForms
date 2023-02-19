@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>:read-only and :read-write demo</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- custom styling -->
+    <style>
+      body {
+        font-family: "Ubuntu", sans-serif;
+        margin: 20px auto;
+        max-width: 600px;
+      }
+
+      fieldset {
+        padding: 10px 30px 0;
+        margin-bottom: 20px;
+      }
+
+      legend {
+        color: white;
+        background: black;
+        padding: 5px 10px;
+      }
+
+      /* targets all <fieldset> children of the <div> */
+      fieldset > div {
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      button,
+      label,
+      input[type="text"],
+      textarea {
+        display: block;
+        font-family: inherit;
+        font-size: 100%;
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        padding: 5px;
+        height: 30px;
+      }
+
+      input[type="text"],
+      textarea {
+        width: 50%;
+      }
+
+      textarea {
+        height: 110px;
+        resize: none;
+      }
+
+      label {
+        width: 40%;
+      }
+
+      input:hover,
+      input:focus,
+      textarea:hover,
+      textarea:focus {
+        background-color: #eee;
+      }
+
+      button {
+        width: 60%;
+        margin: 20px auto;
+      }
+
+      /* 
+        CSS functions are pseudo-classes technically
+        we use :is() CSS function to capture multiple selectors and their read-only properties 
+        useful for writing large selectors in more compact form
+      */
+
+      :is(
+          input:read-only,
+          input:-moz-read-only,
+          textarea:-moz-read-only,
+          textarea:read-only
+        ) {
+        border: 0;
+        box-shadow: none;
+        background-color: white;
+      }
+
+      :is(textarea:-moz-read-write, textarea:read-write) {
+        box-shadow: inset 1px 1px 3px #ccc;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <form>
+      <fieldset>
+        <legend contenteditable="true">Check shipping details</legend>
+        <div>
+          <label for="name">Name: </label>
+          <input id="name" name="name" type="text" value="Mr Soft" readonly />
+        </div>
+        <div>
+          <label for="address">Address: </label>
+          <textarea id="address" name="address" readonly>
+23 Elastic Way,
+Viscous,
+Bright Ridge,
+CA
+</textarea
+          >
+        </div>
+        <div>
+          <label for="pcode">Zip/postal code: </label>
+          <input id="pcode" name="pcode" type="text" value="94708" readonly />
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Final instructions</legend>
+        <div>
+          <label for="sms-confirm">Send confirmation by SMS?</label>
+          <input id="sms-confirm" name="sms-confirm" type="checkbox" />
+        </div>
+        <div>
+          <label for="instructions">Any special instructions?</label>
+          <textarea id="instructions" name="instructions"></textarea>
+        </div>
+      </fieldset>
+
+      <div><button type="button">Amend details</button></div>
+      <div><button type="submit">Submit</button></div>
+    </form>
+  </body>
+</html>
