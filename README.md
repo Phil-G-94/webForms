@@ -112,3 +112,11 @@ button {
   - need to use 'required' <html> attribute on :required inputs for client-side validation purposes. see pseudoDemo/pseudo-required.html.
   - ::before || ::after pseudo-elements for generated content. usually contained in empty <span> elements see pseudoDemo/out-of-range.html.
   - :enabled :disabled || see pseudoDemo/enabled-disabled. 
+  - :read-only and :read-write || see pseudoDemo/readonly-readwrite.
+  - :checked, :default, :indeterminate. Radio and checkbox states. --> think about custom radio/checkbox styling in advanced-form-styling1.html. 
+    Examples 
+    - :checked examplein advanced-form-styling.html,
+    - [:default example](https://mdn.github.io/learning-area/html/forms/pseudo-classes/radios-checked-default.html) and,
+    - [:indeterminate]()https://mdn.github.io/learning-area/html/forms/pseudo-classes/radios-checked-indeterminate.html
+
+  - [Other pseudo classes](https://developer.mozilla.org/en-US/docs/Learn/Forms/UI_pseudo-classes#more_pseudo-classes)
