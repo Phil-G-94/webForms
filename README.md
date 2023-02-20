@@ -120,3 +120,11 @@ button {
     - [:indeterminate]()https://mdn.github.io/learning-area/html/forms/pseudo-classes/radios-checked-indeterminate.html
 
   - [Other pseudo classes](https://developer.mozilla.org/en-US/docs/Learn/Forms/UI_pseudo-classes#more_pseudo-classes)
+  - Skill tests on codepen.
+
+### Client-side form validation
+
+- Different types of client-side validation 
+- Built-in form validation
+- Validating forms using JS
+- Skill tests 
