@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fruit Start</title>
+    <style>
+      input:invalid {
+        border: 2px dashed red;
+      }
+
+      input:valid {
+        border: 2px solid black;
+      }
+      /*
+      input:invalid:required {
+        background-image: linear-gradient(to right, pink, lightgreen);
+      }
+      */
+    </style>
+  </head>
+  <body>
+    <!-- Shows simplistic form validation, using required and pattern attributes. Visual styling added in via CSS pseudo-elements -->
+     <form>
+      <label for="choose">Would you prefer a banana or cherry?</label>
+      <input id="choose" name="i-like" required pattern="[Bb]anana|[Cc]herry"/>
+      <button>Submit</button>
+    </form>
+  </body>
+</html>
