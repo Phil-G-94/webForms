@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <form>
+    <label>
+      I would like you to provide me with an email address: 
+      <input type="email" id="mail" name="mail" />
+    </label>
+    <button>Submit</button>
+  </form>
+
+  <script defer>
+    const email = document.querySelector('#mail');
+
+    // event handler registers on 'input' event, which fires when the value of an <input> or <textarea> element has been changed
+    email.addEventListener('input', (event) => {
+      // conditional accessess the validity property, which returns a ValidityState property
+        // if the typeMismatch property of the ValidityState object returns true, meaning its value is not in the required syntax
+      if (email.validity.typeMismatch) {
+        // we set a custom error message to the element
+        email.setCustomValidity('I am expecting an email address!');
+      } else {
+        // if typeMismatch returns false, value is in its required syntax, and we pass in empty string as error message. Renders input valid,
+        // allows form to submit
+        email.setCustomValidity('');
+      }
+    });
+
+  </script>
+</body>
+</html>

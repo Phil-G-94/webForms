@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detailed Constraint Validation Example</title>
+  <script src="detailed.js" defer></script>
+  <style>
+    /* styling resets */ 
+    body {
+      font: 1em sans-serif;
+      width: 200px;
+      padding: 0;
+      margin: 0 auto;
+    }
+
+    p * {
+      display: block;
+    }
+
+    input[type="email"] {
+      appearance: none;
+
+      width: 100%;
+      border: 1px solid #333;
+      margin: 0;
+
+      font-family: inherit;
+      font-size: 90%;
+
+      box-sizing: border-box;
+    }
+
+    /* Invalid fields styling */
+    input:invalid {
+      border-color: #900;
+      background-color: #fdd;
+    }
+
+    input:focus:invalid {
+      outline: none;
+    }
+
+    /* Error message styling */
+    .error {
+      width: 100%;
+      padding: 0;
+
+      font-size: 80%;
+      color: white;
+      background-color: #900;
+      border-radius: 0 0 5px 5px;
+
+      box-sizing: border-box;
+    }
+
+    .error.active {
+      padding: 0.3em;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 
+    uses 'novalidate' attribute to indicate the form should not be validated when submitted. Boolean. 
+    lets our script take control over the validation
+    doesn't disable support for the CV API nor the application of pseudo-classes
+  
+  -->
+  <form id="form1"novalidate></form>
+  <p>
+    <label for="mail">
+      <span>Please enter an email address</span>
+      <input type="email" id="mail" name="mail" required minlength="8" />
+      <!--
+        aria-live="polite" indicates that updates to the region should be presented either at the end of speaking the current sentence or
+        when the user stops typing..
+      -->
+      <span class="error" aria-live="polite"></span>
+    </label>
+
+  </p>
+  <button>Submit</button>
+</body>
+
+</html>

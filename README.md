@@ -124,7 +124,28 @@ button {
 
 ### Client-side form validation
 
-- Different types of client-side validation 
+- Why? 
+  - Initial check to avoid sending incorrect data to the server, causing issues with server response. 
+  - Complemented by server side validation. 
+- Different types of client-side validation
+  - Built-in form validation | HTML | has better performance than JS, but not that customizable
+  - JS validation is coded using JavaScript. Validation is completely customisable, but you to create it all || use a library.
+
 - Built-in form validation
+  - required | minlength, maxlength | min, max | type | pattern (regex)
+  - when it adheres to any of the above, it is valid, and as such is matched by the :valid CSS pseudo-class for styling purposes.
+  - when it doesn't, it is invalid, and is matched by :invalid CSS pseudo-class for styling purposes. 
+  - Constraint validation reference [here](https://developer.mozilla.org/en-US/docs/Web/HTML/Constraint_validation#validation-related_attributes)
+  
 - Validating forms using JS
+  - Using the Constraint Validation API for more complex constraints. Reference [here](https://developer.mozilla.org/en-US/docs/Web/HTML/Constraint_validation#complex_constraints_using_the_constraint_validation_api)
+
+  - Makes several additional properties and methods available on ``` <button>, <fieldset>, <input>, <output>, <select>, <textarea> ``` and the ``` <form> ``` elements. 
+
+  - Built-in HTML validation features can't be easily styled with CSS; they also depend on browser's locale, so may be in a different language than the language used on the page. Customising these features is one of the most common uses of the Constraint Validation API.
+
+  - simple-example.html | using  .validity.typeMismatch properties and the setCustomValidity() method of the CV API. 
+
+  
+
 - Skill tests 
