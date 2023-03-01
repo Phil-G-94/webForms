@@ -140,12 +140,74 @@ button {
 - Validating forms using JS
   - Using the Constraint Validation API for more complex constraints. Reference [here](https://developer.mozilla.org/en-US/docs/Web/HTML/Constraint_validation#complex_constraints_using_the_constraint_validation_api)
 
-  - Makes several additional properties and methods available on ``` <button>, <fieldset>, <input>, <output>, <select>, <textarea> ``` and the ``` <form> ``` elements. 
+  - Makes several additional properties and methods available on ` <button>, <fieldset>, <input>, <output>, <select>, <textarea> ` and the ` <form> ` elements. 
 
   - Built-in HTML validation features can't be easily styled with CSS; they also depend on browser's locale, so may be in a different language than the language used on the page. Customising these features is one of the most common uses of the Constraint Validation API.
 
   - simple-example.html | using  .validity.typeMismatch properties and the setCustomValidity() method of the CV API. 
 
-  
+- Skill tests - see codepens:
+  - [1](https://codepen.io/_Recurs1ion/pen/jOvMWPw)
+  - [2](https://codepen.io/_Recurs1ion/details/MWqjKNZ)
+  - [3](https://codepen.io/_Recurs1ion/details/JjaRNMR) 
 
-- Skill tests 
+
+### Sending Form Data 
+
+1) HTML forms as a convenient user-friendly way to configure an HTTP request to send data to a server (web servers like Apache, Nginx, IIS, Tomcat etc.). Data is sent using the HTTP protocol.
+
+  - **HTTP requests** include two parts; 
+  a *header* that contains a set of global metadata about the browser's capabilities,
+  and a *body* that can contain information necessary for the server to process the specific request.
+
+2) `<form>` defines how data is sent. *action* and *method* attributes. 
+  
+  - **action** defines *where* the data is sent. Its value must be an absolute or relative URL, otherwise it will be sent to the URL of the page that contains the form. 
+  
+  If URL specified uses HTTP protocol, data is encrypted - even if origin URL isn't HTTPS. If vice versa, all browsers display a warning that data sent may not be encrypted. 
+
+  Data is sent in **name=value** pairs separated by ampersands.
+
+  **action** value should be a file on the server that can handle the incoming data, including ensuring server-side validation. 
+
+  - **method** defines *how* data is sent. 
+
+  **HTTP protocol** provides the **GET** and **POST** methods. 
+
+  **GET** is used by the browsers to ask the server to send back a given resource.
+  It appends the values in the form to the end of the URL, i.e. http://foo.com/**?say=Hi&to=Mom**, once the request has been made. 
+
+  **POST** method is used to communicate to the server and have it send back a response based on the data in the body of the HTTP request. Using this methods appends the data to the body of the HTTP request, for example: 
+  ```
+    POST / HTTP/2.0
+    Host: foo.com
+    Content-Type: application/x-www-form-urlencoded
+    Content-Length: 13
+    say=Hi&to=Mom
+
+  ```
+
+  - Use Chrome Development Tools or similar to view HTTP requests in full. Especially POST.
+  - Never use GET method to send passwords or other sensitive data
+  - POST method preferred for large amounts of data as browsers/servers often limit URL length. 
+
+#### Sending files: a special case...
+
+- Files are considered binary data, whereas all other data is considered text data.
+- This makes sending files with HTML forms a special case. Because HTTP is a text protocol, there are special requirements for handling binary data. 
+
+  - Including the **enctype** attribute: needs to be done. Let's us specify value of Content-Type HTTP header included in request when form is submitted. ** Set its value to multipart/form-data"
+
+  - Set the method to "POST"; file content can't be put inside URL parameters. 
+
+  - Include one/more **input type="file"** to allows users to select the file(s) that will be uploaded. 
+
+### Security Issues
+
+- HTML forms => common server attack vectors. [Website Security](https://developer.mozilla.org/en-US/docs/Learn/Server-side/First_steps/Website_security) for more detail. 
+
+- Simplified approach to web security: 
+  - Escape potentially dangerous characters/such as JavaScript or SQL commands;
+  - Limit the incoming amount of data to only what's necessary to process requests;
+  - Sandbox uploaded files;
+
